@@ -33,7 +33,7 @@ describe('Books Tests',()=>{
           book=await GetBook();
       });
 
-it('6',(done)=>{
+it('6.Validate that the book with a number 9781491904244 has 278 pages.',(done)=>{
  request2.get('Book?ISBN=9781491904244')
  .end((err,res)=>{
     expect(res.body.pages).to.equal(278);
@@ -42,7 +42,7 @@ it('6',(done)=>{
  });
  
 });
-it('3',async()=>{
+it('3.Adding a book to the list of prefered ones.',async()=>{
     
 
      const res=await request2.post('Books')
@@ -62,7 +62,7 @@ it('3',async()=>{
        expect(res2.body.books[res2.body.books.length-1].isbn).to.equal(book[0].isbn);
        expect(res2.statusCode).to.equal(200);
 });
-it('4',async()=>{
+it('4.Add book with unexisting isbn to the preferred list of books.',async()=>{
     const res=await request2.post('Books')
     .send({
         "userId": userId,
@@ -76,7 +76,7 @@ it('4',async()=>{
       expect(res.body.message).to.equal("ISBN supplied is not available in Books Collection!");
       expect(res.statusCode).to.equal(400);
 });
-it('5',async()=>{
+it('5. From all books, choose another book to replace the first in the list of preferred books ',async()=>{
    
     var res=await request2.put(`Books/${book[0].isbn}`)
     .send({
@@ -91,7 +91,7 @@ it('5',async()=>{
        expect(res2.body.books[0].isbn).to.equal(book[1].isbn);
        expect(res2.statusCode).to.equal(200);
 });
-it('7',async()=>{
+it('7.Remove a book from the preferred  collection.',async()=>{
    let res=await request2.delete('Book')
     .send(
       {
@@ -107,13 +107,14 @@ it('7',async()=>{
    expect(res.statusCode).to.equal(204);
 
 });
-it('8',async()=>{
+
+it('8.Remove Book  that is not previously added in the preferred collection.',async()=>{
     
     
   let res=await request2.delete('Book')
   .send(
     {
-        "isbn": "9781449325862222",
+        "isbn": book[5].isbn,
         "userId": userId
     }
   ).set('Authorization',`Bearer ${token}`);

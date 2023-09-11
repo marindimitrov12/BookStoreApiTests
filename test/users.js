@@ -32,7 +32,7 @@ describe('UsersValidation',()=>{
       }).end((err,res)=>{
        expect(res.body.message).to.equal("UserName and Password required.");
        expect(res.status).to.equal(400);
-        console.log(res);
+        
         done();
        });
     });
@@ -55,7 +55,7 @@ describe('UsersValidation',()=>{
       }).end((err,res)=>{
        expect(res.body.message).to.equal("UserName and Password required.");
        expect(res.status).to.equal(400);
-        console.log(res);
+       
         done();
        });
     });
@@ -67,7 +67,7 @@ describe('UsersValidation',()=>{
       }).end((err,res)=>{
        expect(res.body.message).to.equal("UserName and Password required.");
        expect(res.status).to.equal(400);
-        console.log(res);
+        
         done();
        });
     });
@@ -83,15 +83,12 @@ describe('UsersValidation',()=>{
                 "password": "Pkml12g5!"
               }).end((err,res)=>{
                 expect(res.body.message).to.equal("User exists!");
-                console.log(res.body.message);
-                console.log(token);
-                console.log("-------------------------")
-                console.log(userId);
+               
                 done();
               });
           });
     });
-    it('User_CreatedSuccessfully',(done)=>{
+    it('2.User_CreatedSuccessfully',(done)=>{
          request.get(`/User/${userId}`)
          .set('Authorization',`Bearer ${token}`)
          .end((err,res)=>{
